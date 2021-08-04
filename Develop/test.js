@@ -8,6 +8,7 @@ const testObj = {
     installConfirm: true,
     install: "Follow the instructions on the npm website in order to install",
     usage: "Use this application to dynamically generate professional README files using minimal user input, README will generate when all inputs are finished",
+    languages: ['Javascript', 'ES6', 'Node'],
     screenshotConfirm: true,
     screenshotDirectory: './images/screenshot.png',
     license: 'Other',

@@ -6,7 +6,7 @@ const questions = () => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'name',
+            name: 'title',
             message: 'What is the name of your project?(required)',
             validate: nameInput => {
                 if (nameInput) {
@@ -23,14 +23,30 @@ const questions = () => {
             message: 'What is the link to your repository?(if public available)'
         },
         {
+            type: 'confirm',
+            name: 'featuresConfirm',
+            message: 'Would you like to list seperate features?',
+            default: false
+        },
+        {
             type: 'input',
             name: 'description',
-            message: 'Describe your project(required)',
+            message: 'Generally describe your project(required)',
             validate: description => {
                 if (description) {
                     return true;
                 } else {
                     console.log('Please enter your name!');
+                    return false;
+                }
+            }
+        },
+        {
+            
+            when: ({ featuresConfirm }) => {
+                if (featuresConfirm) {
+                    return true;
+                } else {
                     return false;
                 }
             }
@@ -71,6 +87,12 @@ const questions = () => {
                     return false;
                 }
             }
+        },
+        {
+            type: 'checkbox',
+            name: 'languages',
+            message: 'What did you build this project with? (Check all that apply)',
+            choices: ['Javascript', 'HTML', 'CSS', 'ES6', 'JQuery', 'Bootstrap', 'Node']
         },
         {
             type: 'confirm',
