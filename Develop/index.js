@@ -1,181 +1,189 @@
 // TODO: Include packages needed for this application
 const generateMarkdown = require('./utils/generateMarkdown');
 const inquirer = require('inquirer');
+const { title } = require('process');
 // TODO: Create an array of questions for user input
-const questions = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: 'What is the name of your project?(required)',
-            validate: nameInput => {
-                if (nameInput) {
-                    return true;
-                } else {
-                    console.log('Please enter your project name!');
-                    return false;
-                }
+
+inquirer.prompt([
+    {
+        type: 'input',
+        name: 'title',
+        message: 'What is the title of your project?:',
+        validate: title => {
+            if (title) {
+                return true;
+            } else {
+                console.log('Please enter your project title!');
+                return false;
             }
-        },
-        {
-            type: 'input',
-            name: 'repo',
-            message: 'What is the link to your repository?(if public available)'
-        },
-        {
-            type: 'confirm',
-            name: 'featuresConfirm',
-            message: 'Would you like to list seperate features?',
-            default: false
-        },
-        {
-            type: 'input',
-            name: 'description',
-            message: 'Generally describe your project(required)',
-            validate: description => {
-                if (description) {
-                    return true;
-                } else {
-                    console.log('Please enter your name!');
-                    return false;
-                }
-            }
-        },
-        {
-            
-            when: ({ featuresConfirm }) => {
-                if (featuresConfirm) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'confirm',
-            name: 'table',
-            message: 'Would you like a table of contents?',
-            default: false
-        },
-        {
-            type: 'confirm',
-            name: 'installConfirm',
-            message: 'Does your project need to be installed?',
-            default: false
-        },
-        {
-            type: 'input',
-            name: 'install',
-            message: 'Provide detailed installation instructions',
-            when: ({ installConfirm }) => {
-                if (installConfirm) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'usage',
-            message: 'Describe how to use this project(required)',
-            validate: useDescription => {
-                if (useDescription) {
-                    return true;
-                } else {
-                    console.log('Please enter your name!');
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'checkbox',
-            name: 'languages',
-            message: 'What did you build this project with? (Check all that apply)',
-            choices: ['Javascript', 'HTML', 'CSS', 'ES6', 'JQuery', 'Bootstrap', 'Node']
-        },
-        {
-            type: 'confirm',
-            name: 'screenshotConfirm',
-            message: 'Would you like to include a screenshot in your usage description?',
-            default: false
-        },
-        {
-            type: 'input',
-            name: 'screenshotDirectory',
-            message: 'Please enter in the location of your screenshot',
-            when: ({ screenshotConfirm }) => {
-                if (screenshotConfirm) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'list',
-            name: 'license',
-            message: 'Choose a license you would like to use',
-            choices: ['ISC', 'MIT', 'GNU GPLv3', 'Other']
-        },
-        {
-            type: 'input',
-            name: 'licenseInput',
-            message: 'Please enter a Title for your custom license',
-            when: ({ license }) => {
-                if (license === 'Other') {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'licenseCopyRightDate',
-            message: 'What year are we marking the Copyright year for?',
-            default: new Date().getFullYear(),
-            when: ({ licenseInput }) => {
-                if (licenseInput) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'licenseBodyInput',
-            message: 'Please enter the body of your custom license',
-            when: ({ licenseInput }) => {
-                if (licenseInput) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'githubLink',
-            message: 'Please enter the link to your GitHub profile(if you have one)',
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'Please input an Email that you would like anyone to contact you at(if you have one)'
         }
-    ]);
-};
+    },
+    {
+        type: 'confirm',
+        name: 'tableConfirm',
+        message: 'Would you like a table of contents?',
+        default: true
+    },
+    {
+        type: 'input',
+        name: 'description',
+        message: 'Describe your project!:',
+        validate: description => {
+            if (description) {
+                return true;
+            } else {
+                console.log('Please enter your project description!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'confirm',
+        name: 'installConfirm',
+        message: 'Does your project need to be installed?',
+        default: false
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'Describe how to install your project:',
+        when: ({ installConfirm }) => {
+            if (installConfirm) {
+                return true;
+            }
+            return false;
+        },
+        validate: install => {
+            if (install) {
+                return true;
+            } else {
+                console.log('Please enter your installation instructions!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Describe how an end user might use your project for themselves:',
+    },
+    {
+        type: 'confirm',
+        name: 'contributerConfirm',
+        message: 'Would you like to list any contributers other than yourself?',
+        default: false
+    },
+    {
+        type: 'input',
+        name: 'contributers',
+        message: 'Please enter in any individual contributers seperated by a comma(,):',
+        when: ({ contributerConfirm }) => {
+            if (contributerConfirm) {
+                return true;
+            }
+            return false;
+        }
+    },
+    {
+        type: 'list',
+        name: 'license',
+        message: 'Please select a license that you would like to attach to your project',
+        choices: ['ISC', 'MIT', 'GNU GPLv3.0', 'other(manual entry)']
+    },
+    {
+        type: 'input',
+        name: 'licenseTitle',
+        message: 'Please enter in the title of your license:',
+        when: ({ license }) => {
+            if (license === 'other(manual entry)') {
+                return true;
+            }
+            return false;
+        },
+        validate: licenseTitle => {
+            if (licenseTitle) {
+                return true;
+            } else {
+                console.log('Please enter the title of your license!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'licenseYear',
+        message: 'Would you like to manually enter a copyright year?(Defaults to now):',
+        default: new Date().getFullYear(),
+        when: ({ license }) => {
+            if (license === 'other(manual entry)') {
+                return true;
+            }
+            return false;
+        }
+    },
+    {
+        type: 'input',
+        name: 'licenseBody',
+        message: 'Please enter in the body of your license:',
+        when: ({ license }) => {
+            if (license === 'other(manual entry)') {
+                return true;
+            }
+            return false;
+        },
+        validate: licenseBody => {
+            if (licenseBody) {
+                return true;
+            } else {
+                console.log('Please enter the body of your license!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'confirm',
+        name: 'testConfirm',
+        message: 'Does your application have a test function?',
+        default: false
+    },
+    {
+        type: 'input',
+        name: 'testInstructions',
+        message: 'Please input your desired instructions on how to run the test function:',
+        when: ({ testConfirm }) => {
+            if (testConfirm) {
+                return true;
+            }
+            return false;
+        },
+        validate: testInstructions => {
+            if (testInstructions) {
+                return true;
+            } else {
+                console.log('Please input your desired instructions!');
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'userName',
+        message: 'What is your name?(or the name you would like to attach as the author)'
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Enter any email you would like attached to your name'
+    },
+    {
+        type: 'input',
+        name: 'github',
+        message: 'Enter any GitHub link you would like attached to your name'
+    },
+    {
+        type: 'input',
+        name: 'extraContactInfo',
+        message: 'Please enter (if any) any extra contact info that you would like to include'
+    }
+]).then(answers => console.log(answers))
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
 
-// TODO: Create a function to initialize app
-function init() {
-    return questions();
-}
-
-// Function call to initialize app
-init()
-    .then(answers => console.log(answers));
