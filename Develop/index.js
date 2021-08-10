@@ -76,7 +76,7 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'contributers',
-        message: 'Please enter in any individual contributers seperated by a comma(,):',
+        message: 'Please enter in any individual contributers seperated by a comma ",":',
         when: ({ contributerConfirm }) => {
             if (contributerConfirm) {
                 return true;
@@ -88,7 +88,7 @@ inquirer.prompt([
         type: 'list',
         name: 'license',
         message: 'Please select a license that you would like to attach to your project',
-        choices: ['ISC', 'MIT', 'GNU GPLv3.0', 'other(manual entry)']
+        choices: ['ISC', 'MIT', 'GNU GPLv3.0', 'other(manual entry)', 'none']
     },
     {
         type: 'input',
@@ -183,7 +183,8 @@ inquirer.prompt([
         type: 'input',
         name: 'extraContactInfo',
         message: 'Please enter (if any) any extra contact info that you would like to include'
-    }
-]).then(answers => console.log(answers))
+    }])
+.then(answers => generateMarkdown(answers))
+
 
 
