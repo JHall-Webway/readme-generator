@@ -12,7 +12,7 @@ const testObj = {
     testInstructions: 'Make your you have your terminal navigated to this file and type in "node test" ',
     userName: 'James Hall',
     email: 'mr.sl3go.jh@gmail.com',
-    github: "https://github.com/JHallUofA/readme-generator",
+    github: "https://github.com/JHallUofA",
 };
 
 generateMarkdown(testObj)

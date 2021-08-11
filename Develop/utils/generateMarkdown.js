@@ -343,15 +343,18 @@ const testMaker = data => {
 }
 
 const questionsMaker = data => {
-  if (data.userName || data.email || data.github) {
-    let contactArr = [data.userName, data.email, data.extraContactInfo]
+  if (data.email || data.github) {
+    let contactArr = [data.email, data.github, data.extraContactInfo]
     return `## Questions
     
-    Contact informaition for the author can be reached with the following:
+  Contact informaition for the author can be reached with the following:
 
-    ${contactArr.filter(Boolean).map(contact => {
-      return `${contact}
-    `;
+  ${data.userName}
+
+  ${contactArr.filter(Boolean).map(contact => {
+    return `[${contact}](${contact})
+    
+  `;
     })
     .join('')}`
   }
