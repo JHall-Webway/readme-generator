@@ -31,8 +31,10 @@
     
 ## Questions
     
-    Contact informaition for the author can be reached with the following:
+  Contact informaition for the author can be reached with the following:
 
-    James Hall
-    mr.sl3go.jh@gmail.com
+  James Hall
+
+  [mr.sl3go.jh@gmail.com](mr.sl3go.jh@gmail.com)
     
+  [https://github.com/JHallUofA](https://github.com/JHallUofA)
