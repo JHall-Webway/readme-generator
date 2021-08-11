@@ -349,7 +349,7 @@ const questionsMaker = data => {
     
     Contact informaition for the author can be reached with the following:
 
-    ${contactArr.map(contact => {
+    ${contactArr.filter(Boolean).map(contact => {
       return `${contact}
     `;
     })
